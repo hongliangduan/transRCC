@@ -26,7 +26,7 @@ unzip data.zip
 ```python
 # get the transformer-baseline model
 # modify the input dir path manually in train_transformer.py
-python train_transformer.py
+python train_transformer_train_radical.py
 ```
 
 ### Step 2: train the model on general chemical reaction data set
@@ -34,7 +34,7 @@ python train_transformer.py
 ```python
 #　get a pretrained model
 # modify the input dir path manually in train_transformer.py
-python train_transformer.py 
+python train_transformer_380k.py  
 ```
 
 ### Step 3: train the pretrained model on radical cascade cyclization data set
@@ -42,7 +42,7 @@ python train_transformer.py
 ```python
 # after pretraining, get back to original data path
 # manually midification is required in train_transformer.py
-python train_transformer.py 
+python train_transformer_train_radical.py
 ```
 
 ### Step 4: test
