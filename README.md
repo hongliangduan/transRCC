@@ -20,6 +20,13 @@ unzip data.zip
 
 ## Quickstart
 
+```bash
+mkdir -p out/smiles/380k_pretrain \
+    out/smiles/RCC_key1 \
+    model/smiles/380k_pretrain \
+    model/smiles/RCC_key1
+```
+
 ### Pretrain on 380k
 
 ```bash
