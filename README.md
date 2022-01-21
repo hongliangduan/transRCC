@@ -1,55 +1,60 @@
 # New application of natural language process (NLP) for chemist: Predicting intermediate and providing effective direction for mechanism inference
 
-This is the code for " New application of natural language process (NLP) for chemist: Predicting intermediate and providing effective direction for mechanism inference" paper. 
+This is the code for "New application of natural language process (NLP) for chemist: Predicting intermediate and providing effective direction for mechanism inference" paper.
 
-## Environment
+## Setup
 
-```python
-conda env create -n pred_intermdt -f environment.yml
-codna activate red_intermdt
+```bash
+conda env create -n ABCD -f environment.yml
+conda activate ABCD
 ```
 
 ## Dataset
 
-The dataset for pretraining were provided in ```data/pre-train dataset``` file. 
+USPTO_380k was used as pretraining dataset: `data/smiles/380k_pretrain`
+Raw radical cascade cyclization dataset: `data/smiles/RCC.txt`
 
-The train, validation and test of radical cascade cyclization intermediate prediction data set were provided in ```data/radical cascade cyclization dataset``` file.
-
-```python
-# if data is zipped, unpack it
+```bash
 unzip data.zip
 ```
+
 ## Quickstart
 
-### Step 1. train the model on radical cascade cyclization data set
+### Pretrain on 380k
 
-```python
-# get the transformer-baseline model
-# modify the input dir path manually in train_transformer.py
-python train_transformer_train_radical.py
+```bash
+bash pre-train.sh
 ```
 
-### Step 2: train the model on general chemical reaction data set
+Move `checkpoints` and all wheights generated in this running to the model dir `model/smiles/380k_pretrain`
 
-```python
-#　get a pretrained model
-# modify the input dir path manually in train_transformer.py
-python train_transformer_380k.py  
+### Finetuning on radical cascade cyclization dataset
+
+We only demonstrated the prediction of key intermediates in this demo
+
+```bash
+bash train.sh
 ```
 
-### Step 3: train the pretrained model on radical cascade cyclization data set
+Move `checkpoints` and all wheights generated in this running to the model dir `model/smiles/RCC_key_1`
 
-```python
-# after pretraining, get back to original data path
-# manually midification is required in train_transformer.py
-python train_transformer_train_radical.py
+### Evaluating
+
+```bash
+bash evaluate.sh
 ```
 
-### Step 4: test
+### Get accuracy
 
-```python
-python test.py
+copy the target (labels) file to `out` dir as well as the results of evaluating above
+
+```bash
+cp data/smiles/RCC_key1/test.target out/smiles/RCC_key1
+mv greedy.out out/smiles/RCC_key1
 ```
 
+Then `accuracy.txt` was obtained
 
-
+```bash
+python get_acc.py
+```
